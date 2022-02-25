@@ -1,0 +1,22 @@
+version: '3.1'
+
+services:
+
+  postgres_db:
+    image: postgres
+    container_name: ${CONTAINER_ID_NAME?Variable not set}-postgres-db
+    restart: always
+    ports:
+            - ${POSTGRES_DB_EXPOSE_PORT?Variable not set}:${POSTGRES_DB_PORT?Variable not set} # expose to 5434
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_DB_API_PASSWORD?Variable not set}
+      POSTGRES_USER: ${POSTGRES_DB_API_USER?Variable not set}
+      POSTGRES_DB_API: ${POSTGRES_DB_API?Variable not set}
+      TZ: 'Asia/Jakarta' # Add timezone
+
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
